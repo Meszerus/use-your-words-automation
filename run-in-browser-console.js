@@ -37,16 +37,23 @@ const mutationObserver = new MutationObserver((mutations) => {
 				setTimeout(() => {
 					let i = 1;
 					let choiceMade = false;
+
 					while(!choiceMade) {
 						const $currentChoice = $(`#${i}`);
+
 						if($currentChoice.length > 0 && $currentChoice.attr("disabled") !== "disabled") {
 							$currentChoice.trigger("click");
 							choiceMade = true;
 							console.log(`Clicked option: #${i}`);
+						} else if(i > 50) {
+							$("#HOUSE").trigger("click");
+							choiceMade = true;
+							console.log(`Clicked house option, but only because something went wrong lol`);
 						}
+
 						i++;
 					}
-				}, 10);
+				}, 20);
 				setTimeout(() => {
 					if($("#button-enter").length > 0) {
 						$("#button-enter").trigger("click");
