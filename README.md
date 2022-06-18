@@ -18,7 +18,7 @@ The tool automates the input and voting modes, thus progressing whole game sessi
 
 ### Initial Achievements
 
-Set up a room in the Xbox game, making sure to set "Family Mode" on in the pause menu, and then create five Chrome profiles. Since you'll already have a default Chrome profile, this gives you a total of six "players". In the browser window for each profile, have them join the room code as a player. For each profile, open the "DevTools" (this can be done by right-clicking the page and choose Inspect, OR pressing F12 on the keyboard). In the "Console" tab of DevTools, copy-and-paste the Javascript code found in this repo and hit enter on your keyboard. The console will reply with "undefined", but the code you've just executed will now be part of the webpage.
+Set up a room in the Xbox game, making sure to set "Family Mode" on in the pause menu, and then create five Chrome profiles. Since you'll already have a default Chrome profile, this gives you a total of six "players". In the browser window for each profile, have them join the room code as a player. For each profile, open the "DevTools" (this can be done by right-clicking the page and choose Inspect, OR pressing F12 on the keyboard). In the "Console" tab of DevTools, copy-and-paste [the included Javascript code](/run-in-browser-console.js) and then hit Enter on your keyboard. The console will reply with "undefined", but the code you've just executed will now be part of the webpage.
 
 Once you've done this for all profiles, hit the "Start Game" option on the Xbox game. The Chrome profile windows will then automatically fill out all the Input and Vote modes, meaning no manual intervention is needed until the end of the game session.
 
