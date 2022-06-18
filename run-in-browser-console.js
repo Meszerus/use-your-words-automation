@@ -1,16 +1,9 @@
 const INPUT_CODE_MONKEY = "💀💀💀💀💀💀";
 const INPUT_CALL_OF_DOODY = "💩💩💩💩💩";
 
-let interactLock = false;
-let inputCount = 0;
+let hasTriggeredEasterEgg = false;
 
 const mutationObserver = new MutationObserver((mutations) => {
-	if(interactLock) {
-		return;
-	} else {
-		interactLock = true;
-	}
-	
 	for(let mutation of mutations) {
 		if(mutation.type === "childList") {
 			
@@ -18,23 +11,27 @@ const mutationObserver = new MutationObserver((mutations) => {
 			if($("#answer").length > 0) {
 				console.log("MODE: INPUT");
 				setTimeout(() => {
-					let answerText = inputCount % 15 === 0 ? INPUT_CODE_MONKEY : INPUT_CALL_OF_DOODY;
+					if($("#answer").text().length > 0) { return; }
+
+					const answerText = hasTriggeredEasterEgg ? INPUT_CALL_OF_DOODY : INPUT_CODE_MONKEY;
 					$("#answer").text(answerText);
-					inputCount++;
 					console.log(`Entered text: ${answerText}`);
+					hasTriggeredEasterEgg = true;
 				}, 10);
 				setTimeout(() => {
-					if($("#button-enter").length > 0) {
-						$("#button-enter").trigger("click");
-						console.log("Clicked button: Submit");
-					}
-				}, Math.floor(Math.random() * 300) + 50);
+					if($("#button-enter").length === 0) { return; }
+
+					$("#button-enter").trigger("click");
+					console.log("Clicked button: Submit");
+				}, Math.floor(Math.random() * 100) + 10);
 			}
 			
 			// Mode: Vote
 			if($("#HOUSE").length > 0) {
 				console.log("MODE: VOTE");
 				setTimeout(() => {
+					if($("input[name='radio']").prop("checked")) { return; }
+
 					let i = 1;
 					let choiceMade = false;
 
@@ -45,7 +42,7 @@ const mutationObserver = new MutationObserver((mutations) => {
 							$currentChoice.trigger("click");
 							choiceMade = true;
 							console.log(`Clicked option: #${i}`);
-						} else if(i > 50) {
+						} else if(i > 10) {
 							$("#HOUSE").trigger("click");
 							choiceMade = true;
 							console.log(`Clicked house option, but only because something went wrong lol`);
@@ -53,18 +50,16 @@ const mutationObserver = new MutationObserver((mutations) => {
 
 						i++;
 					}
-				}, 20);
+				}, 10);
 				setTimeout(() => {
-					if($("#button-enter").length > 0) {
-						$("#button-enter").trigger("click");
-						console.log("Clicked button: Vote");
-					}
-				}, Math.floor(Math.random() * 300) + 50);
+					if($("#button-enter").length === 0) { return; }
+
+					$("#button-enter").trigger("click");
+					console.log("Clicked button: Vote");
+				}, Math.floor(Math.random() * 100) + 50);
 			}
 		}
 	}
-	
-	interactLock = false;
 });
 
 mutationObserver.observe(document.getElementById("container"), { childList: true });
